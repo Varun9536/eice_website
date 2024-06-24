@@ -1,6 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
+import morgan from "morgan"
 
 
 // env configuration
@@ -18,6 +19,9 @@ export const app = express()
 // cors error correction
 app.use(cors())
 
+// morgan
+
+app.use(morgan("dev"))
 // json  parsing
 app.use(express.json())
 
