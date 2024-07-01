@@ -30,3 +30,33 @@ export const news_letter_email = async (req, res) => {
 
     }
 }
+
+
+
+
+export const delete_email = async (req, res) => {
+
+
+    try {
+
+        let { email } = req.body
+        if (!email) {
+            return res.status(400).json({ "result": "unsuccessful", message: "please enter email" })
+        }
+
+        let get_email = await newsLetterModel.find({ email: email })
+
+        if (get_email.length > 0) {
+            let data = await newsLetterModel.deleteMany({ _id: get_email[0]._id })
+            return res.status(200).json({ "result": "successful", "output": data, message: "email successfuly deleted" })
+        }
+
+        return res.status(400).json({ "result": "unsuccessful", message: "email id not found" })
+
+    } catch (error) {
+
+        res.json({ "error": error })
+    }
+
+
+}
